@@ -1,5 +1,3 @@
-# GUI courtesy of Tech With Tim on YouTube
-
 from Solver import SolverOne as solver
 import BoardGenerator as bg
 import pygame
