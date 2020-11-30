@@ -225,8 +225,9 @@ def main():
         if board.selected and key is not None:
             board.sketch(key)
 
-
-
+        if strikes > 15:
+            exit("You got too many mistakes!")
+            
         redraw_window(win, board, play_time, strikes)
         pygame.display.update()
 
