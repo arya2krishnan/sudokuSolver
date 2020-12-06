@@ -1,3 +1,5 @@
+
+
 from Solver import SolverOne as solver
 import BoardGenerator as bg
 import pygame
@@ -37,10 +39,10 @@ class Grid:
                 return False
 
     def complete(self):
-        row, col = self.selected
-        if self.cubes[row][col].value == 0:
-            self.update_model()
-            self.solver.bt_solve()
+        s1 = solver(self.board)
+        s1.bt_solve()
+        s1.print_board()
+        self.update_model()
 
     def sketch(self, val):
         row, col = self.selected
@@ -162,6 +164,7 @@ def main():
     win = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Sudoku")
     board = Grid(9, 9, 540, 540)
+
     key = None
     run = True
     start = time.time()
@@ -223,12 +226,15 @@ def main():
         if board.selected and key is not None:
             board.sketch(key)
 
-        if strikes > 15:
-            exit("You got too many mistakes!")
-            
+        if strikes == 15:
+            board.complete()
+            exit("You lost the game! Here's the solution!")
+
+
         redraw_window(win, board, play_time, strikes)
         pygame.display.update()
 
 
 main()
+
 pygame.quit()
